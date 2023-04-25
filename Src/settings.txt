@@ -1,2 +1,4 @@
 # SETTING FILE
-iterations = 100
+
+floors = 20
+lift_max_weight = 65560
