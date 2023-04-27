@@ -1,77 +1,53 @@
 #include "Settings.h"
 
-Settings::Settings() // Checks if settings file exists
+Settings::Settings()
 {
-    std::cout << "settings constructor\n";
+    std::cout << "Default settings? [y/n] [any key -> yes]"  << std::endl;
 
-    std::ifstream file;
+    char answer = std::cin.get();
 
-    file.exceptions(std::ifstream::badbit | std::ifstream::failbit);
-
-    try
-    {
-        file.open(path_to_file);
-        file.close();
-        std::cout << "success" << std::endl;
-    }
-    catch(std::ifstream::failure &e)
-    {
-        std::cerr << e.what() << std::endl << "Cannot open file" << std::endl;
-        exit(1);
-    }
+    if(answer == 'n' || answer == 'N')
+        is_default = false;
+    else is_default = true;
 }
 
-void Settings::read_setting_file()
+bool Settings::settings_default()
 {
-    std::ifstream file;
-    file.open(path_to_file);
+    return this->is_default;
+}
 
-    std::string buffer;
-    std::getline(file, buffer); // to check if it is setting file
-
-    std::string setting_file = "# SETTING FILE";
-
-    if(strcmp(buffer.c_str(), setting_file.c_str()) != 0)
+uint32_t Settings::get_input(std::string what)
+{
+    uint32_t value;
+    try
     {
-        std::cout << std::endl << path_to_file << " is not a setting file" << std::endl;
+        std::cout << std::endl << "Insert " << what << " in range of uint32_t: ";
+        std::cin >> value;
+
+        if(std::cin.fail() | std::cin.bad()) throw std::invalid_argument("Bad input, cannot do conversion");
+        if(!std::cin.good()) throw std::invalid_argument("Bad input, unhandled error");
+
+    }
+    catch(std::exception &e)
+    {
+        std::cout << std::endl << e.what()<< std::endl;
         exit(1);
     }
 
-    while(!file.eof()) // loads all elements to a map
+    return value;
+}
+
+void Settings::get_settings()
+{
+    if(is_default)
     {
-        std::string key;
-        std::string string_value;
-
-        std::getline(file, buffer);
-
-        if(buffer.empty()) // checks for empty line
-            continue;
-
-        uint32_t pos = buffer.find(delimiter);
-        key = buffer.substr(0, pos);
-        string_value = buffer.erase(0, pos + strlen(delimiter));
-
-        uint16_t value;
-
-        try
-        {
-            value = std::stoi(string_value);    // input error handling // TODO: there is possibility to input larger number than uint16_t -> fix it
-        }
-        catch(std::invalid_argument e)
-        {
-            std::cout << std::endl << "Bad input in " << path_to_file << " (cannot do conversion) at " << key << std::endl;
-            exit(1);
-        }
-        catch(std::out_of_range e)
-        {
-            std::cout << std::endl << "Bad input in " << path_to_file << " (out of range) at " << key << std::endl;
-            exit(1);
-        }
-
-        settings.emplace(key, value);
+        settings.emplace("iterations", default_iterations);
+        settings.emplace("floor_number", default_floor_number);
+        settings.emplace("lift_max_weight", default_lift_max_weight);
+        return;
     }
 
-    file.close();
-    std::cout << settings.at("lift_max_weight");
-
+    settings.emplace("iterations", get_input("iterations"));
+    settings.emplace("floor_number", get_input("floor_number"));
+    settings.emplace("lift_max_weight", get_input("lift_max_weight"));
 }
