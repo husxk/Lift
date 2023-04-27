@@ -9,4 +9,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Src/settings.txt
 add_executable(lift_simulator
         Src/main.cpp
         Src/Settings/Settings.h
-        Src/Settings/Settings.cpp)
+        Src/Settings/Settings.cpp
+        Src/Simulator/Simulator.cpp
+        Src/Simulator/Simulator.h)

@@ -1,9 +1,12 @@
 #include  <iostream>
-#include "Settings/Settings.h"
+#include <memory>
+#include "Simulator/Simulator.h"
 
 
 int main()
 {
-    Settings* settings = new Settings();
-    settings->get_settings();
+    auto simulator = std::make_shared<Simulator>();
+
+
+
 }

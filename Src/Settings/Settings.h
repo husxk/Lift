@@ -16,6 +16,7 @@ class Settings
     uint32_t get_input(std::string);
 
 public:
+    uint32_t get_value(std::string);
     Settings();
     bool settings_default();
     void get_settings();

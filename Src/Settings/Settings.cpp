@@ -37,6 +37,11 @@ uint32_t Settings::get_input(std::string what)
     return value;
 }
 
+uint32_t Settings::get_value(std::string key)
+{
+    return settings.at(key);
+}
+
 void Settings::get_settings()
 {
     if(is_default)
