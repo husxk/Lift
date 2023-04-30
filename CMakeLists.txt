@@ -11,4 +11,6 @@ add_executable(lift_simulator
         Src/Settings/Settings.h
         Src/Settings/Settings.cpp
         Src/Simulator/Simulator.cpp
-        Src/Simulator/Simulator.h)
+        Src/Simulator/Simulator.h
+        Src/Lift/Lift.cpp
+        Src/Lift/Lift.h)

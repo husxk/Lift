@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <iostream>
+#include "../Lift/Lift.h"
 
 #include "../Settings/Settings.h"
 

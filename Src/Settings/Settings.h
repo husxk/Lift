@@ -12,10 +12,10 @@ constexpr uint32_t default_floor_number = 10;
 class Settings
 {
     std::unordered_map<std::string, uint32_t> settings; // iterations, lift_max_weight, floors,
-    bool is_default;
     uint32_t get_input(std::string);
 
 public:
+    bool is_default;
     uint32_t get_value(std::string);
     Settings();
     bool settings_default();

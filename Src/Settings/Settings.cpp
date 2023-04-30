@@ -37,6 +37,8 @@ uint32_t Settings::get_input(std::string what)
     return value;
 }
 
+// TODO: add inline?
+
 uint32_t Settings::get_value(std::string key)
 {
     return settings.at(key);
