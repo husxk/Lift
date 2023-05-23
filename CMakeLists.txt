@@ -15,4 +15,12 @@ add_executable(lift_simulator
         Src/Lift/Lift.cpp
         Src/Lift/Lift.h
         Src/Floor/Floor.cpp
-        Src/Floor/Floor.h)
+        Src/Floor/Floor.h
+        Src/Person/Person.h
+        Src/Person/Person.cpp
+        Src/Person/Male/Male.cpp
+        Src/Person/Male/Male.h
+        Src/Person/Female/Female.cpp
+        Src/Person/Female/Female.h
+        Src/Person/Kid/Kid.cpp
+        Src/Person/Kid/Kid.h)
