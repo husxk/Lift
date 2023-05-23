@@ -2,6 +2,8 @@
 #include <stdint.h>
 
 class Person {
+
+protected:
     uint16_t weight;
     uint32_t floor_number;
 
@@ -13,7 +15,6 @@ class Person {
     };
 
     special_event_specifier specifier;
-
 
 public:
     Person() = default;

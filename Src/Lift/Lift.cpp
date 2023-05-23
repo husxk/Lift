@@ -58,5 +58,4 @@ void Lift::lift_move()
 {
     current_position = lift_queue.front();
     lift_queue.pop();
-    change_lift_status();
 }
