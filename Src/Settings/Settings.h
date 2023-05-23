@@ -5,9 +5,9 @@
 #include <stdexcept>
 #include <unordered_map>
 
-constexpr uint32_t default_iterations = 100;
-constexpr uint32_t default_lift_max_weight = 800;
-constexpr uint32_t default_floor_number = 10;
+const uint32_t default_iterations = 100;
+const uint32_t default_lift_max_weight = 800;
+const uint32_t default_floor_number = 10;
 
 class Settings
 {
