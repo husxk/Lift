@@ -1,11 +1,11 @@
 #include  <iostream>
 #include <memory>
 #include "Simulator/Simulator.h"
-
-// TODO: add inline in one-line functions?
+#include <cstdlib>
 
 int main()
 {
+    srand(time(NULL));
     auto simulator = std::make_shared<Simulator>();
 
 
