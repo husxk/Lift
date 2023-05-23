@@ -4,17 +4,10 @@
 #include <queue>
 #include <memory>
 
-constexpr uint16_t d_max_weight = 800; // in kg
-constexpr uint16_t d_floors_to_operate = 5; // in range <0;5>
-constexpr uint16_t d_start_position = 0; //  start floor
-constexpr uint16_t d_current_weight = 0; // start weight
-
-enum lift_statuses
-{
-    stay = 0,
-    up = 1,
-    down = 2
-};
+const uint16_t d_max_weight = 800; // in kg
+const uint16_t d_floors_to_operate = 5; // in range <0;5>
+const uint16_t d_start_position = 0; //  start floor
+const uint16_t d_current_weight = 0; // start weight
 
 class Lift
 {
@@ -23,9 +16,7 @@ class Lift
     uint32_t current_position; // current_position at start = 0
     uint32_t current_weight;
 
-    std::shared_ptr<lift_statuses> lift_status;
-
-    std::queue<uint32_t> lift_queue;
+    std::queue<uint32_t> lift_queue; // floor number queue
 
 public:
     Lift();
@@ -43,8 +34,6 @@ public:
     void weight_update(uint32_t, uint8_t);
 
     void lift_move();
-    void change_lift_status();
-    lift_statuses get_lift_status();
 
 
 };

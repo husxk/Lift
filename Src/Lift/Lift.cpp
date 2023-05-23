@@ -6,8 +6,6 @@ Lift::Lift()
     floors_to_operate = d_floors_to_operate;
     current_position = d_start_position;
     current_weight = d_current_weight;
-
-    lift_status = std::make_shared<lift_statuses>(stay);
 }
 
 Lift::Lift(uint32_t max_weight, uint32_t floors_to_operate)
@@ -16,8 +14,6 @@ Lift::Lift(uint32_t max_weight, uint32_t floors_to_operate)
     this->floors_to_operate = floors_to_operate;
     current_position = d_start_position;
     current_weight = d_current_weight;
-
-    lift_status = std::make_shared<lift_statuses>(stay);
 }
 
 uint32_t Lift::get_current_position()
@@ -63,16 +59,4 @@ void Lift::lift_move()
     current_position = lift_queue.front();
     lift_queue.pop();
     change_lift_status();
-}
-
-void Lift::change_lift_status()
-{
-    if(lift_queue.empty()) lift_status = std::make_shared<lift_statuses>(stay);
-    else if(lift_queue.front() > get_current_position()) lift_status = std::make_shared<lift_statuses>(up);
-    else lift_status = std::make_shared<lift_statuses>(down);
-}
-
-lift_statuses Lift::get_lift_status()
-{
-    return *lift_status;
 }
