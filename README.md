@@ -2,7 +2,7 @@
 
 
 ## Build:
-- git clone https://github.com/husxk/lift_simulator
+- git clone https://github.com/husxk/Lift
 - go into repository
 - mkdir build && cd build
 - cmake ..
