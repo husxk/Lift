@@ -13,4 +13,6 @@ add_executable(lift_simulator
         Src/Simulator/Simulator.cpp
         Src/Simulator/Simulator.h
         Src/Lift/Lift.cpp
-        Src/Lift/Lift.h)
+        Src/Lift/Lift.h
+        Src/Floor/Floor.cpp
+        Src/Floor/Floor.h)
