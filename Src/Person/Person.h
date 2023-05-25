@@ -1,5 +1,7 @@
 #pragma once
-#include <stdint.h>
+
+#include <cstdint>
+#include <cstdlib>
 
 class Person {
 
@@ -11,11 +13,12 @@ protected:
     {
         male = 1,
         female = 2,
-        kid = 4
+        kid = 3
     };
 
     special_event_specifier specifier;
 
 public:
-    Person() = default;
+    explicit Person(int32_t);
+    bool special_event();
 };
