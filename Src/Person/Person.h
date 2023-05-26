@@ -19,6 +19,9 @@ protected:
     special_event_specifier specifier;
 
 public:
-    explicit Person(int32_t);
-    bool special_event();
+    Person() = default;
+    void set_weight();
+    void set_floor(uint32_t);
+
+  //  bool special_event();
 };
