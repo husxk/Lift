@@ -7,7 +7,7 @@ class Person {
 
 protected:
     uint16_t weight;
-    uint32_t floor_number;
+    uint32_t floor_number = 0;
 
     enum special_event_specifier
     {
@@ -21,7 +21,5 @@ protected:
 public:
     Person() = default;
     void set_weight();
-    void set_floor(uint32_t);
-
-  //  bool special_event();
+    void set_floor(uint32_t, uint32_t);
 };

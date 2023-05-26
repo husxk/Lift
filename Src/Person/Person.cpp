@@ -16,9 +16,12 @@ void Person::set_weight()
     else weight = (rand() % 30) + 20;
 }
 
-void Person::set_floor(uint32_t floors_number)
+void Person::set_floor(uint32_t floors_number, uint32_t current_floor)
 {
-    floor_number = (rand() % floors_number) + 1; // floors_number is limiting to <0;9>, adding +1 to have <1;10>
+    do
+    {
+        floor_number = rand() % (floors_number + 1); // floors_number is limiting to <0;9>, adding +1 to have <0;10>
+    }while(floor_number == current_floor);  // it is not necessary to call lift for the same floor as you are
 }
 
 
