@@ -1,14 +1,20 @@
 #include "Person.h"
 
+Person::Person()
+{
+    set_weight();
+    set_random_event();
+}
+
+void Person::set_random_event()
+{
+    int event_chance = rand() % 100;
+    if(event_chance <= d_event_chance) random_event = true;
+    else random_event = false;
+}
+
 void Person::set_weight()
 {
-//    int special_event_sp = rand() % 100;
-//    if(special_event_sp > 0 && special_event_sp < 34)
-//        specifier = male;
-//    else if(special_event_sp >= 34 && special_event_sp < 67)
-//        specifier = female;
-//    else specifier = kid;
-
     if(specifier == male)   // to get rand() in range <a;b) use (rand() % (b-a)) + a
         weight = (rand() % 60) + 60;
     else if(specifier == female)
@@ -16,7 +22,7 @@ void Person::set_weight()
     else weight = (rand() % 30) + 20;
 }
 
-void Person::set_floor(uint32_t floors_number, uint32_t current_floor)
+void Person::set_floor(uint32_t floors_number, uint32_t current_floor) // TODO: change this to sth better
 {
     do
     {
@@ -24,4 +30,17 @@ void Person::set_floor(uint32_t floors_number, uint32_t current_floor)
     }while(floor_number == current_floor);  // it is not necessary to call lift for the same floor as you are
 }
 
+uint16_t Person::get_person_weight() const
+{
+    return weight;
+}
 
+uint32_t Person::get_person_floor() const
+{
+    return floor_number;
+}
+
+bool Person::get_person_random_event_chance() const
+{
+    return random_event;
+}
