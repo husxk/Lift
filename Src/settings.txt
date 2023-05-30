@@ -1,4 +1,0 @@
-# SETTING FILE
-
-floors = 20
-lift_max_weight = 65560
