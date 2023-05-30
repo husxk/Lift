@@ -1,10 +1,11 @@
 #pragma once
 #include "../Person.h"
 
-class Male:Person {
-    bool is_drunk;
-    bool will_puke;
-    void iteration();
+class Male: public Person {
+    special_event_specifier specifier = male;
 public:
-    Male() = default;
+
+    Male(uint32_t, uint32_t);
+    void iteration() override;
+    void event() override;
 };
