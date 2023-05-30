@@ -13,9 +13,9 @@ class Settings
 {
     std::unordered_map<std::string, uint32_t> settings; // iterations, lift_max_weight, floors,
     uint32_t get_input(std::string);
+    bool is_default;
 
 public:
-    bool is_default;
     uint32_t get_value(std::string);
     Settings();
     bool settings_default();

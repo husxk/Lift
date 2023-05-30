@@ -13,7 +13,7 @@ Settings::Settings()
 
 bool Settings::settings_default()
 {
-    return this->is_default;
+    return is_default;
 }
 
 uint32_t Settings::get_input(std::string what)
