@@ -49,11 +49,6 @@ void Lift::add_new_floor_to_queue(uint32_t new_floor)
     lift_queue.push(new_floor);
 }
 
-void Lift::delete_current_floor_in_queue()
-{
-    lift_queue.pop();
-}
-
 void Lift::lift_move()
 {
     current_position = lift_queue.front();
