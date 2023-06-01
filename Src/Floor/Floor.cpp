@@ -1,9 +1,9 @@
 #include "Floor.h"
 
-Floor::Floor()
+Floor::Floor() // index from 0
 {
-    floors_number += 1;
     this_floor_number = floors_number;
+    floors_number += 1;
 }
 
 void Floor::add_person()
@@ -17,13 +17,20 @@ void Floor::add_person()
     else person_queue.push(std::make_shared<Kid>(floors_number,this_floor_number) ); // kid
 }
 
-void Floor::iteration()
+void Floor::iteration() // TODO: complete this
 {
     int new_person = rand() % 100;
 
-    if(new_person > d_person_percent)
-    {
+    if(new_person > 0)
         add_person();
-    }
+}
 
+std::shared_ptr<Person> Floor::get_first_person_in_queue()
+{
+    return person_queue.front();
+}
+
+void Floor::delete_person_from_floor()
+{
+    person_queue.pop();
 }

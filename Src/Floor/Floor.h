@@ -23,6 +23,16 @@ class Floor
 public:
     Floor();
     void iteration();
+    std::shared_ptr<Person> get_first_person_in_queue();
 
+
+    void print()
+    {
+        person_queue.front().get()->print();
+    }
+
+
+
+    void delete_person_from_floor();
 
 };
