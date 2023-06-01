@@ -1,13 +1,16 @@
 #pragma once
-#include <stdint.h>
+
 #include "../Person.h"
 
-class Kid:Person {
-    bool has_toys;
-    static uint8_t kid_number;
+#include <iostream>
+#include <memory>
 
+class Kid: public Person
+{
+    special_event_specifier specifier = kid;
 public:
-    Kid() = default;
 
+    Kid(uint32_t, uint32_t);
+    void iteration() override;
+    void event() override;
 };
-
