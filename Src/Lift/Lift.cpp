@@ -21,16 +21,6 @@ uint32_t Lift::get_current_position()
     return current_position;
 }
 
-void Lift::set_new_position(uint32_t new_position)
-{
-    current_position = new_position;
-}
-
-uint32_t Lift::get_floors_to_operate()
-{
-    return floors_to_operate;
-}
-
 void Lift::weight_update(uint32_t weight, uint8_t operation)
 {
     if(operation == '+')
@@ -39,9 +29,19 @@ void Lift::weight_update(uint32_t weight, uint8_t operation)
         current_weight -= weight;
 }
 
+uint32_t Lift::get_max_weight()
+{
+    return max_weight;
+}
+
 uint32_t Lift::get_weight()
 {
     return current_weight;
+}
+
+bool Lift::is_queue_empty()
+{
+    return people_in_lift.empty();
 }
 
 void Lift::add_new_floor_to_queue(uint32_t new_floor)
