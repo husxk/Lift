@@ -1,5 +1,10 @@
 #include "Floor.h"
 
+bool Floor::is_person()
+{
+    return person_queue.empty();
+}
+
 Floor::Floor() // index from 0
 {
     this_floor_number = floors_number;
@@ -11,10 +16,10 @@ void Floor::add_person()
     int special_event_sp = rand() % 100;
 
     if(special_event_sp > 0 && special_event_sp < 34) // male
-        person_queue.push(std::make_shared<Male>(floors_number,this_floor_number) );
+        person_queue.push(std::make_shared<Male>(floors_number, this_floor_number) );
     else if(special_event_sp >= 34 && special_event_sp < 67) // female
-        person_queue.push(std::make_shared<Female>(floors_number,this_floor_number) );
-    else person_queue.push(std::make_shared<Kid>(floors_number,this_floor_number) ); // kid
+        person_queue.push(std::make_shared<Female>(floors_number, this_floor_number) );
+    else person_queue.push(std::make_shared<Kid>(floors_number, this_floor_number) ); // kid
 }
 
 void Floor::iteration() // TODO: complete this

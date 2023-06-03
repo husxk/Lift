@@ -25,6 +25,7 @@ public:
     void iteration();
     std::shared_ptr<Person> get_first_person_in_queue();
 
+    bool is_person();
 
     void print()
     {
