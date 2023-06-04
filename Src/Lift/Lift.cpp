@@ -46,11 +46,16 @@ bool Lift::is_queue_empty()
 
 void Lift::add_new_floor_to_queue(uint32_t new_floor)
 {
-    lift_queue.push(new_floor);
+    lift_queue.push_back(new_floor);
 }
 
 void Lift::lift_move()
 {
     current_position = lift_queue.front();
-    lift_queue.pop();
+   // lift_queue.erase(lift_queue.begin());
+}
+
+void Lift::delete_floor_in_queue(uint32_t index)
+{
+    lift_queue.erase(lift_queue.begin() + index);
 }

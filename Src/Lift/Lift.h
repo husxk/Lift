@@ -22,7 +22,7 @@ class Lift
     uint32_t current_position; // current_position at start = 0
     uint32_t current_weight;
 
-    std::queue<uint32_t> lift_queue; // floor number queue
+    std::vector<uint32_t> lift_queue; // floor numbers vector
 
 public:
 
@@ -33,6 +33,7 @@ public:
 
     void add_new_floor_to_queue(uint32_t);
     bool is_queue_empty();
+    void delete_floor_in_queue(uint32_t);
 
     uint32_t get_weight();
     void weight_update(uint32_t, uint8_t);
