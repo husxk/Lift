@@ -53,6 +53,6 @@ void Settings::get_settings()
     }
 
     settings.emplace("iterations", get_input("iterations"));
-    settings.emplace("floor_number", get_input("floor_number"));
+    settings.emplace("floor_number", get_input("floor_number") + 1);
     settings.emplace("lift_max_weight", get_input("lift_max_weight"));
 }

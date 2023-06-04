@@ -7,7 +7,7 @@
 
 const uint32_t default_iterations = 100;
 const uint32_t default_lift_max_weight = 800;
-const uint32_t default_floor_number = 10;
+const uint32_t default_floor_number = 11; // its 0 (ground floor)+ 10 floors
 
 class Settings
 {
