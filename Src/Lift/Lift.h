@@ -10,16 +10,14 @@
 #include "../Person/Male/Male.h"
 #include "../Person/Kid/Kid.h"
 
-const uint16_t d_max_weight = 800; // in kg
-const uint16_t d_floors_to_operate = 5; // in range <0;5>
+const uint16_t d_max_weight = 800;  // max weight
 const uint16_t d_start_position = 0; //  start floor
 const uint16_t d_current_weight = 0; // start weight
 
 class Lift
 {
-    uint32_t max_weight; // in kg
-    uint32_t floors_to_operate; // range <0;floors_to_operate>
-    uint32_t current_position; // current_position at start = 0
+    uint32_t max_weight;
+    uint32_t current_position; // current_position, at start = 0
     uint32_t current_weight;
 
     std::vector<uint32_t> lift_queue; // floor numbers vector
@@ -27,7 +25,7 @@ class Lift
 public:
 
     Lift();
-    Lift(uint32_t, uint32_t);
+    Lift(uint32_t);
 
     uint32_t get_current_position();
 

@@ -3,15 +3,13 @@
 Lift::Lift()
 {
     max_weight = d_max_weight;
-    floors_to_operate = d_floors_to_operate;
     current_position = d_start_position;
     current_weight = d_current_weight;
 }
 
-Lift::Lift(uint32_t max_weight, uint32_t floors_to_operate)
+Lift::Lift(uint32_t max_weight)
 {
     this->max_weight = max_weight;
-    this->floors_to_operate = floors_to_operate;
     current_position = d_start_position;
     current_weight = d_current_weight;
 }
@@ -52,7 +50,6 @@ void Lift::add_new_floor_to_queue(uint32_t new_floor)
 void Lift::lift_move()
 {
     current_position = lift_queue.front();
-   // lift_queue.erase(lift_queue.begin());
 }
 
 void Lift::delete_floor_in_queue(uint32_t index)
