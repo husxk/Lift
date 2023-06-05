@@ -38,6 +38,7 @@ public:
     uint32_t get_max_weight();
 
     void lift_move();
+    void direct_move(uint32_t new_position) { current_position = new_position; };
 
     std::vector<std::shared_ptr<Person> > people_in_lift; // people holder in lift
 
