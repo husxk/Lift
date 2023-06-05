@@ -18,10 +18,12 @@ class Simulator
     std::shared_ptr<Settings> settings; // TODO change to unique
     std::unique_ptr<Floor[]> floors;
     void check_for_desired_floor();
+    void check_floor_for_people();
 
 public:
     std::shared_ptr<Lift> lift; //TODO change to unique
     Simulator();
-
+    uint32_t get_iterations() const { return settings->get_value("iterations"); }
     void iteration();
+    ~Simulator() = default;
 };

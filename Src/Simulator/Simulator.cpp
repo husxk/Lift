@@ -2,20 +2,40 @@
 
 void Simulator::check_for_desired_floor()
 {
-    for (uint32_t i = 0; i < lift->people_in_lift.size(); i++) {
+    uint32_t a = 0;
+    for (uint32_t i = 0; i < lift->people_in_lift.size(); i++)
+    {
         if (lift->people_in_lift.at(i).get()->get_person_floor() == lift->get_current_position())
         {
-            lift->weight_update(lift->people_in_lift.at(i)->get_person_weight(), '-');
+            lift->weight_update(lift->people_in_lift.at(i).get()->get_person_weight(), '-');
             lift->delete_floor_in_queue(i);
             lift->people_in_lift.erase(lift->people_in_lift.begin() + i);
             i -= 1;
+            a++;
         }
+    }
+    std::cout << "out: " << a << " ";
+}
+
+
+// while there is person at current floor and person can get in the lift (lift current weight + person weight <= max lift weight)
+// adds person to lift
+
+void Simulator::check_floor_for_people()
+{
+    while(!floors[lift->get_current_position()].is_person() // is_person() returns if person_queue at floor is empty
+          && lift->get_weight() + floors[lift->get_current_position()].get_first_person_in_queue().get()->get_person_weight() <= lift->get_max_weight())
+    {
+        lift->people_in_lift.push_back(floors[lift->get_current_position()].get_first_person_in_queue()); // malloc assertion fault
+        floors[lift->get_current_position()].delete_person_from_floor();
+        lift->weight_update(lift->people_in_lift.back().get()->get_person_weight(), '+');
+        lift->add_new_floor_to_queue(lift->people_in_lift.back().get()->get_person_floor());
     }
 }
 
-void Simulator::iteration()
+void Simulator::iteration() // TODO: factorise this to functions
 {
-    // iterate for all floors
+    // iterate all floors
     for(int i = 0; i < settings->get_value("floor_number"); i++)
         floors[i].iteration();
 
@@ -23,27 +43,59 @@ void Simulator::iteration()
     // yes -> erase from lift + update lift weight
     check_for_desired_floor();
 
-    // while there is person at current floor and person can get in the lift (lift current weight + person weight <= max lift weight)
-    // adds person to lift
-    // TODO: factorise this to functions
-    while(!floors[lift->get_current_position()].is_person() // is_person() returns if person_queue at floor is empty
-            && lift->get_weight() + floors[lift->get_current_position()].get_first_person_in_queue()->get_person_weight() <= lift->get_max_weight())
-    {
-        lift->people_in_lift.push_back(floors[lift->get_current_position()].get_first_person_in_queue());
-        floors[lift->get_current_position()].delete_person_from_floor();
-        lift->weight_update(lift->people_in_lift.back()->get_person_weight(), '+');
-        lift->add_new_floor_to_queue(lift->people_in_lift.back()->get_person_floor());
-    }
+    // checks if lift can get people from current floor
+    check_floor_for_people();
 
-    std::cout << "floor: " << lift->get_current_position() << " weight: " << lift->get_weight() << " next: " << lift->people_in_lift.front()->get_person_floor();
-    std::cout << std::endl;
+    std::cout << "floor: " << lift->get_current_position() << " weight: " << lift->get_weight();
 
+    if(!lift->people_in_lift.empty())
+        std::cout << " next: " << lift->people_in_lift.front().get()->get_person_floor();
+
+
+    // checks for next lift move
     if(lift->is_queue_empty())
     {
+        std::cout << " waits" << std::endl << std::endl;
+        uint32_t current_position = lift->get_current_position();
+        uint32_t max_floors = settings->get_value("floor_number");
+
+        // checking floors above lift
+        for(uint32_t i = current_position; i < max_floors; i++)
+        {
+            if(!floors[i].is_person())
+            {
+                lift->add_new_floor_to_queue(i);
+                lift->lift_move();
+                lift->delete_floor_in_queue(0);
+                return;
+            }
+        }
+
+        // checking floors below lift
+        for(uint32_t i = current_position; i > 0; i--)
+        {
+            if(!floors[i].is_person())
+            {
+                lift->add_new_floor_to_queue(i);
+                lift->lift_move();
+                lift->delete_floor_in_queue(0);
+                return;
+            }
+        }
+
+        if(!floors[0].is_person())
+        {
+            lift->add_new_floor_to_queue(0);
+            lift->lift_move();
+            lift->delete_floor_in_queue(0);
+        }
+
         return;
+
     }
-    else
-        lift->lift_move(); // TODO: add checking for 0 floors in queue
+
+    std::cout << std::endl;
+    lift->lift_move();
 }
 
 
@@ -54,7 +106,7 @@ Simulator::Simulator() // TODO: add data collector class
 
     if(settings->settings_default())
         lift = std::make_shared<Lift>();
-    else lift = std::make_shared<Lift>(settings->get_value("lift_max_weight"), settings->get_value("floor_number"));
+    else lift = std::make_shared<Lift>(settings->get_value("lift_max_weight"));
 
     floors = std::make_unique<Floor[]>(settings->get_value("floor_number"));
 
