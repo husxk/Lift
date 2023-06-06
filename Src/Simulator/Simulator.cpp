@@ -6,13 +6,13 @@
 void Simulator::check_for_desired_floor()
 {
     uint32_t a = 0;
-    for (uint32_t i = 0; i < lift->people_in_lift.size(); i++)
+    for (uint32_t i = 0; i < lift->get_size_of_people(); i++)
     {
-        if (lift->people_in_lift.at(i).get()->get_person_floor() == lift->get_current_position())
+        if (lift->get_person_at(i)->get_person_floor() == lift->get_current_position())
         {
-            lift->weight_update(lift->people_in_lift.at(i).get()->get_person_weight(), '-');
+            lift->weight_update(lift->get_person_at(i)->get_person_weight(), '-');
             lift->delete_floor_in_queue(i);
-            lift->people_in_lift.erase(lift->people_in_lift.begin() + i);
+            lift->delete_person_at(i);
             i -= 1;
             a++;
         }
@@ -29,10 +29,10 @@ void Simulator::check_floor_for_people()
     while(!floors[lift->get_current_position()].is_person() // is_person() returns if person_queue at floor is empty
           && lift->get_weight() + floors[lift->get_current_position()].get_first_person_in_queue().get()->get_person_weight() <= lift->get_max_weight())
     {
-        lift->people_in_lift.push_back(floors[lift->get_current_position()].get_first_person_in_queue()); // malloc assertion fault
+        lift->add_person(floors[lift->get_current_position()].get_first_person_in_queue());
         floors[lift->get_current_position()].delete_person_from_floor();
-        lift->weight_update(lift->people_in_lift.back().get()->get_person_weight(), '+');
-        lift->add_new_floor_to_queue(lift->people_in_lift.back().get()->get_person_floor());
+        lift->weight_update(lift->get_back_person().get()->get_person_weight(), '+');
+        lift->add_new_floor_to_queue(lift->get_back_person().get()->get_person_floor());
     }
 }
 
@@ -85,8 +85,8 @@ void Simulator::iteration()
 
     std::cout << "floor: " << lift->get_current_position() << " weight: " << lift->get_weight();
 
-    if(!lift->people_in_lift.empty())
-        std::cout << " next: " << lift->people_in_lift.front().get()->get_person_floor();
+    if(!lift->is_people_in_lift())
+        std::cout << " next: " << lift->get_front_person().get()->get_person_floor();
 
 
     // checks for next lift move
