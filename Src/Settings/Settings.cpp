@@ -21,12 +21,12 @@ uint32_t Settings::get_input(std::string what)
     uint32_t value;
     try
     {
-        std::cout << std::endl << "Insert " << what << " in range of uint32_t: ";
+        std::cout << std::endl << "Insert " << what << " in range of uint32_t and > 0: ";
         std::cin >> value;
 
         if(std::cin.fail() | std::cin.bad()) throw std::invalid_argument("Bad input, cannot do conversion");
         if(!std::cin.good()) throw std::invalid_argument("Bad input, unhandled error");
-
+        if(value == 0) throw std::invalid_argument("Bad input, value must be > 0");
     }
     catch(std::exception &e)
     {
