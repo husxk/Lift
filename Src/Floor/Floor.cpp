@@ -24,9 +24,9 @@ void Floor::add_person()
 
 void Floor::iteration() // TODO: complete this
 {
-    int new_person = rand() % 100;
+    int new_person = rand() % 101;
 
-    if(new_person > 0)
+    if(new_person > 90)
         add_person();
 }
 

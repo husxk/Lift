@@ -27,13 +27,6 @@ public:
 
     bool is_person();
 
-    void print()
-    {
-        person_queue.front().get()->print();
-    }
-
-
-
     void delete_person_from_floor();
 
 };
