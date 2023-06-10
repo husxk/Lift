@@ -50,6 +50,7 @@ void Simulator::check_floors_for_call()
         if(!floors[i].is_person())
         {
             lift->direct_move(i);
+            iterations++;
             return;
         }
     }
@@ -60,6 +61,7 @@ void Simulator::check_floors_for_call()
         if(!floors[i].is_person())
         {
             lift->direct_move(i);
+            iterations++;
             return;
         }
     }
@@ -68,11 +70,13 @@ void Simulator::check_floors_for_call()
     if(!floors[0].is_person())
     {
         lift->direct_move(0);
+        iterations++;
     }
 }
 
 void Simulator::iteration()
 {
+    std::cout << "it: " << iterations << " ";
     // iterate all floors
     for(int i = 0; i < settings->get_value("floor_number"); i++)
         floors[i].iteration();
@@ -111,4 +115,5 @@ Simulator::Simulator() // TODO: add data collector class
 
     floors = std::make_unique<Floor[]>(settings->get_value("floor_number"));
 
+    iterations = 0;
 }

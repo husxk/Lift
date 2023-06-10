@@ -28,6 +28,8 @@ public:
     Simulator();
     ~Simulator() = default;
 
+    uint32_t iterations;
+
     uint32_t get_iterations() const { return settings->get_value("iterations"); }
     void iteration();
 };
