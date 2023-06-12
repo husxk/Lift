@@ -1,16 +1,22 @@
-#include  <iostream>
 #include <memory>
 #include "Simulator/Simulator.h"
 #include <cstdlib>
 
 int main()
 {
-    srand(time(NULL));
+    srand(time(nullptr));
+
     auto simulator = std::make_shared<Simulator>();
 
-    for(int i = 0; i < simulator->get_iterations() ; i++) {
+    // run simulator
+    for(; simulator->iterations < simulator->get_iterations() ; simulator->iterations++) {
         simulator->iteration();
     }
 
-    std::cout << std::endl << "end";
+    // set if simulation is successful
+    if(simulator->is_lift_empty())
+        simulator->is_simulation_successful(true);
+    else simulator->is_simulation_successful(false);
+
+    simulator->show_results();
 }
