@@ -24,6 +24,10 @@ class Simulator
 
     void check_floors_for_call();
 
+    void check_for_special_events();
+
+    void iterate_floors();
+
 public:
     Simulator();
     ~Simulator() = default;
@@ -32,4 +36,5 @@ public:
 
     uint32_t get_iterations() const { return settings->get_value("iterations"); }
     void iteration();
+    void additional_iterations(uint32_t);
 };

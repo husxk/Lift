@@ -50,6 +50,7 @@ void Simulator::check_floors_for_call()
         if(!floors[i].is_person())
         {
             lift->direct_move(i);
+            iterate_floors();
             iterations++;
             return;
         }
@@ -61,6 +62,7 @@ void Simulator::check_floors_for_call()
         if(!floors[i].is_person())
         {
             lift->direct_move(i);
+            iterate_floors();
             iterations++;
             return;
         }
@@ -70,22 +72,67 @@ void Simulator::check_floors_for_call()
     if(!floors[0].is_person())
     {
         lift->direct_move(0);
+        iterate_floors();
         iterations++;
     }
+}
+
+// checks people in lift in terms of special events
+
+void Simulator::check_for_special_events()
+{
+    uint32_t kid_number = 0;
+
+    for (uint32_t i = 0; i < lift->get_size_of_people(); i++)
+    {
+        if(lift->get_person_at(i)->get_person_specifier() == female)
+            lift->swap_floor_number(lift->get_person_at(i)->event(settings->get_value("floor_number")), i);
+
+        if(lift->get_person_at(i)->get_person_specifier() == male)
+        {
+            uint32_t additional_iterations_number = lift->get_person_at(i)->event(0);
+            additional_iterations(additional_iterations_number);
+        }
+
+        if(lift->get_person_at(i)->get_person_specifier() == kid)
+        {
+            kid_number++;
+            uint32_t additional_iterations_number = lift->get_person_at(i)->event(kid_number);
+            additional_iterations(additional_iterations_number);
+        }
+    }
+}
+
+void Simulator::additional_iterations(uint32_t additional_iterations)
+{
+    iterations += additional_iterations;
+
+    for(int j = 0; j < iterations; j++)
+        iterate_floors();
+}
+
+void Simulator::iterate_floors()
+{
+    for(int i = 0; i < settings->get_value("floor_number"); i++)
+        floors[i].iteration();
 }
 
 void Simulator::iteration()
 {
     std::cout << "it: " << iterations << " ";
+
     // iterate all floors
-    for(int i = 0; i < settings->get_value("floor_number"); i++)
-        floors[i].iteration();
+    iterate_floors();
+
+    // checks for random event for people in lift
+    check_for_special_events();
 
     // checks if current floor and desired floor of any person in lift meets
     check_for_desired_floor();
 
     // checks if lift can get people from current floor
     check_floor_for_people();
+
 
     std::cout << "floor: " << lift->get_current_position() << " weight: " << lift->get_weight();
 
