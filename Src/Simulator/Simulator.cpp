@@ -13,6 +13,7 @@ void Simulator::check_for_desired_floor()
             lift->weight_update(lift->get_person_at(i)->get_person_weight(), '-');
             lift->delete_floor_in_queue(i);
             lift->delete_person_at(i);
+            data->add_person();
             i -= 1;
             a++;
         }
@@ -20,9 +21,9 @@ void Simulator::check_for_desired_floor()
     std::cout << "out: " << a << " ";
 }
 
-
+// checks if lift can take people from current floor
 // while there is person at current floor and person can get in the lift (lift current weight + person weight <= max lift weight)
-// adds person to lift
+// adds person to lift, updates lift weight, adds person desired floor to queue
 
 void Simulator::check_floor_for_people()
 {
@@ -37,6 +38,7 @@ void Simulator::check_floor_for_people()
 }
 
 // checks floors if there are people to give lift
+// if find person at any floor, moves to this floor and iterate floors (lift move is considered as iteration)
 
 void Simulator::check_floors_for_call()
 {
@@ -78,38 +80,61 @@ void Simulator::check_floors_for_call()
 }
 
 // checks people in lift in terms of special events
+// if person has special events -> casts it
+// at the end it is making up iterations overdue
 
 void Simulator::check_for_special_events()
 {
     uint32_t kid_number = 0;
+    uint32_t additional_iterations_number = 0;
 
     for (uint32_t i = 0; i < lift->get_size_of_people(); i++)
     {
         if(lift->get_person_at(i)->get_person_specifier() == female)
-            lift->swap_floor_number(lift->get_person_at(i)->event(settings->get_value("floor_number")), i);
+        {
+            if(lift->get_person_at(i)->get_person_random_event_chance())
+            {
+                data->add_random_female_event();
+                lift->swap_floor_number(lift->get_person_at(i)->event(settings->get_value("floor_number")), i);
+            }
+        }
 
         if(lift->get_person_at(i)->get_person_specifier() == male)
         {
-            uint32_t additional_iterations_number = lift->get_person_at(i)->event(0);
-            additional_iterations(additional_iterations_number);
+            uint32_t additional = lift->get_person_at(i)->event(0);
+            additional_iterations_number += additional;
+            if(additional > 0)
+                data->add_random_male_event();
         }
 
         if(lift->get_person_at(i)->get_person_specifier() == kid)
         {
-            kid_number++;
-            uint32_t additional_iterations_number = lift->get_person_at(i)->event(kid_number);
-            additional_iterations(additional_iterations_number);
+            if((lift->get_person_at(i)->get_person_random_event_chance()))
+            {
+                kid_number++;
+                uint32_t additional = lift->get_person_at(i)->event(kid_number);
+                additional_iterations_number += additional;
+
+                if(additional > 0)
+                    data->add_random_kid_event();
+            }
         }
     }
+
+    additional_iterations(additional_iterations_number);
 }
+
+// it is iterating overdue iterations
 
 void Simulator::additional_iterations(uint32_t additional_iterations)
 {
     iterations += additional_iterations;
 
-    for(int j = 0; j < iterations; j++)
+    for(int j = 0; j < additional_iterations; j++)
         iterate_floors();
 }
+
+// iterating all floors
 
 void Simulator::iterate_floors()
 {
@@ -117,20 +142,20 @@ void Simulator::iterate_floors()
         floors[i].iteration();
 }
 
+// Simulation iteration
+// this functions holds the responsibility of logic of this program
+// it is cooperating with all objects to let simulation work
+
 void Simulator::iteration()
 {
     std::cout << "it: " << iterations << " ";
 
-    // iterate all floors
     iterate_floors();
 
-    // checks for random event for people in lift
     check_for_special_events();
 
-    // checks if current floor and desired floor of any person in lift meets
     check_for_desired_floor();
 
-    // checks if lift can get people from current floor
     check_floor_for_people();
 
 
@@ -150,8 +175,22 @@ void Simulator::iteration()
     std::cout << std::endl;
 }
 
+// shows data collected at simulation
 
-Simulator::Simulator() // TODO: add data collector class
+void Simulator::show_results()
+{
+    std::cout << std::endl;
+
+    std::cout << "People served: " << data->get_people_served() << std::endl;
+    std::cout << "Female events: " << data->get_random_event_female() << std::endl;
+    std::cout << "Male events: " << data->get_random_event_male() << std::endl;
+    std::cout << "Kid events: " << data->get_random_event_kid() << std::endl;
+    std::cout << "Is simulation successful: " << data->get_is_successful() << std::endl;
+}
+
+// simulator constructor is initializing all necessary objects
+
+Simulator::Simulator()
 {
     settings = std::make_unique<Settings>();
     settings->get_settings();
@@ -163,4 +202,6 @@ Simulator::Simulator() // TODO: add data collector class
     floors = std::make_unique<Floor[]>(settings->get_value("floor_number"));
 
     iterations = 0;
+
+    data = std::make_unique<Data>();
 }
