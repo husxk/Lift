@@ -40,7 +40,6 @@ public:
 
     void weight_update(uint32_t, uint8_t);
 
-
     void lift_move() { current_position = lift_queue.front(); };
     void direct_move(uint32_t new_position) { current_position = new_position; };
 
@@ -54,6 +53,8 @@ public:
 
     bool is_people_in_lift() const { return people_in_lift.empty(); };
     std::shared_ptr<Person> get_front_person() { return people_in_lift.front(); };
+
+    void swap_floor_number(uint32_t new_floor_number, uint32_t index) { lift_queue.at(index) = new_floor_number; }
 
 
     ~Lift() = default;
