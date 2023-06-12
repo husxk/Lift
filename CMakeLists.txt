@@ -20,4 +20,5 @@ add_executable(lift_simulator
         Src/Person/Female/Female.cpp
         Src/Person/Female/Female.h
         Src/Person/Kid/Kid.cpp
-        Src/Person/Kid/Kid.h)
+        Src/Person/Kid/Kid.h
+        Src/Data/Data.h)
