@@ -1,9 +1,6 @@
 #include "Floor.h"
 
-bool Floor::is_person()
-{
-    return person_queue.empty();
-}
+// assigns floor number and increments total floors number
 
 Floor::Floor() // index from 0
 {
@@ -11,31 +8,26 @@ Floor::Floor() // index from 0
     floors_number += 1;
 }
 
+// adds person to floor
+
 void Floor::add_person()
 {
     int special_event_sp = rand() % 100;
 
-    if(special_event_sp > 0 && special_event_sp < 34) // male
+    if(special_event_sp > 0 && special_event_sp < 34)                                          // male
         person_queue.push(std::make_shared<Male>(floors_number, this_floor_number) );
-    else if(special_event_sp >= 34 && special_event_sp < 67) // female
+    else if(special_event_sp >= 34 && special_event_sp < 67)                                   // female
         person_queue.push(std::make_shared<Female>(floors_number, this_floor_number) );
-    else person_queue.push(std::make_shared<Kid>(floors_number, this_floor_number) ); // kid
+    else person_queue.push(std::make_shared<Kid>(floors_number, this_floor_number) );       // kid
 }
 
-void Floor::iteration() // TODO: complete this
-{
-    int new_person = rand() % 101;
+//  checks if chance for new person meets requirements
+// if meets requirements -> add person
 
-    if(new_person > 90)
+void Floor::iteration()
+{
+    int new_person = rand() % 101; // <0;100>
+
+    if(new_person > d_person_percent)
         add_person();
-}
-
-std::shared_ptr<Person> Floor::get_first_person_in_queue()
-{
-    return person_queue.front();
-}
-
-void Floor::delete_person_from_floor()
-{
-    person_queue.pop();
 }

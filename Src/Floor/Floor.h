@@ -9,7 +9,7 @@
 #include "../Person/Male/Male.h"
 #include "../Person/Kid/Kid.h"
 
-const int d_person_percent = 70;
+const int d_person_percent = 90;
 
 class Floor
 {
@@ -22,11 +22,13 @@ class Floor
 
 public:
     Floor();
+    ~Floor() = default;
+
     void iteration();
-    std::shared_ptr<Person> get_first_person_in_queue();
+    std::shared_ptr<Person> get_first_person_in_queue() { return person_queue.front(); };
 
-    bool is_person();
+    bool is_person() const { return person_queue.empty(); };
 
-    void delete_person_from_floor();
+    void delete_person_from_floor() { person_queue.pop(); };
 
 };
