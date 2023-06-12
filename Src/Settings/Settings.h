@@ -7,7 +7,7 @@
 
 const uint32_t default_iterations = 100;
 const uint32_t default_lift_max_weight = 800;
-const uint32_t default_floor_number = 11; // its 0 (ground floor)+ 10 floors
+const uint32_t default_floor_number = 11; // its 0 (ground floor) + 10 floors
 
 class Settings
 {
@@ -16,8 +16,10 @@ class Settings
     bool is_default;
 
 public:
-    uint32_t get_value(std::string);
     Settings();
-    bool settings_default();
+    ~Settings() = default;
+
+    uint32_t get_value(std::string key) const { return settings.at(key); }; // returns value from map at given key
+    bool settings_default() const { return is_default; };
     void get_settings();
 };

@@ -1,5 +1,7 @@
 #include "Settings.h"
 
+// gets input if user want to input his data
+
 Settings::Settings()
 {
     std::cout << "Default settings? [y/n] [any key -> yes]"  << std::endl;
@@ -11,10 +13,7 @@ Settings::Settings()
     else is_default = true;
 }
 
-bool Settings::settings_default()
-{
-    return is_default;
-}
+// gets input from user
 
 uint32_t Settings::get_input(std::string what)
 {
@@ -37,10 +36,8 @@ uint32_t Settings::get_input(std::string what)
     return value;
 }
 
-uint32_t Settings::get_value(std::string key)
-{
-    return settings.at(key);
-}
+// gets input from user about iterations, floor_number and lift_max_weight
+// also saves it
 
 void Settings::get_settings()
 {
