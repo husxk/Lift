@@ -7,10 +7,8 @@
 
 class Kid: public Person
 {
-    special_event_specifier specifier = kid;
 public:
-
     Kid(uint32_t, uint32_t);
-    void iteration() override;
-    void event() override;
+    void event() override {};
+    uint32_t event(uint32_t) override;
 };
