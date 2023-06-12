@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <cstdlib>
-#include <iostream>
 
 const int d_event_chance = 90; // % needed to be decided and not have special event
 
@@ -24,6 +23,7 @@ class Person
 
 protected:
     special_event_specifier specifier;
+    void turn_off_random_event() { random_event = false; }
 
 public:
     Person();
@@ -34,10 +34,7 @@ public:
     bool get_person_random_event_chance() const { return random_event; };
     special_event_specifier get_person_specifier() const { return specifier; };
 
-    void turn_off_random_event() { random_event = false; }
-
     virtual uint32_t event(uint32_t) = 0;
-    virtual void event() = 0;
 
     ~Person() = default;
 };

@@ -5,6 +5,5 @@ class Male: public Person {
 public:
 
     Male(uint32_t, uint32_t);
-    void event() override {};
-    uint32_t event(uint32_t) override;  
+    uint32_t event(uint32_t) override;
 };
