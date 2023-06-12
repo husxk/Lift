@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../Person.h"
 
 #include <iostream>
@@ -6,10 +7,9 @@
 
 class Female: public Person
 {
-    special_event_specifier specifier = female;
 public:
 
     Female(uint32_t, uint32_t);
-    void iteration() override;
-    void event() override;
+    uint32_t event(uint32_t) override;
+    void event() override {};
 };

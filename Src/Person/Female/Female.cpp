@@ -2,16 +2,17 @@
 
 Female::Female(uint32_t floors_number, uint32_t current_floor)
 {
+    specifier = female;
     set_floor(floors_number, current_floor);
-    // std::cout << specifier << " " << get_person_weight() << " " << get_person_floor() << " " << get_person_random_event_chance() << std::endl;
 }
 
-void Female::iteration()
+uint32_t Female::event(uint32_t max_floor_number)
 {
-    return;
-}
-
-void Female::event()
-{
-    return;
+    if(get_person_random_event_chance())
+    {
+        set_floor(max_floor_number, get_person_floor());
+        turn_off_random_event();
+        return get_person_floor();
+    }
+    else return get_person_floor();
 }
