@@ -19,7 +19,7 @@ void Person::set_weight()
         weight = (rand() % 60) + 60;
     else if(specifier == female)
         weight = (rand() % 40) + 40;
-    else weight = (rand() % 30) + 20;
+    else weight = (rand() % 30) + 30;
 }
 
 void Person::set_floor(uint32_t floors_number, uint32_t current_floor) // TODO: change this to sth better
@@ -28,19 +28,4 @@ void Person::set_floor(uint32_t floors_number, uint32_t current_floor) // TODO: 
     {
         floor_number = rand() % floors_number; // floors_number is limiting to <0;10>
     }while(floor_number == current_floor);  // it is not necessary to call lift for the same floor as you are
-}
-
-uint16_t Person::get_person_weight() const
-{
-    return weight;
-}
-
-uint32_t Person::get_person_floor() const
-{
-    return floor_number;
-}
-
-bool Person::get_person_random_event_chance() const
-{
-    return random_event;
 }
