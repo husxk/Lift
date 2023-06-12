@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <cstdlib>
 
-const int d_event_chance = 90; // % needed to be decided and not have special event
+const int d_event_chance = 10; // % needed to have special event
 
 enum special_event_specifier
 {
@@ -15,7 +15,7 @@ enum special_event_specifier
 class Person
 {
     uint16_t weight;
-    uint32_t floor_number = 0;
+    uint32_t floor_number;
     bool random_event;
 
     void set_weight();
@@ -27,7 +27,7 @@ protected:
 
 public:
     Person();
-    void set_floor(uint32_t, uint32_t); // TODO Change this to sth better
+    void set_floor(uint32_t, uint32_t);
 
     uint16_t get_person_weight() const { return weight; };
     uint32_t get_person_floor() const { return floor_number; };
