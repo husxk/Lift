@@ -9,10 +9,6 @@
 #include "../Floor/Floor.h"
 #include "../Data/Data.h"
 
-#include "../Person/Person.h"
-#include "../Person/Female/Female.h"
-#include "../Person/Male/Male.h"
-#include "../Person/Kid/Kid.h"
 
 /* Simulation is responsible for running whole simulation, it controls all of other classes and manages them  */
 class Simulator
