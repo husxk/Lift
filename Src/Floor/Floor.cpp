@@ -1,14 +1,10 @@
 #include "Floor.h"
 
-// assigns floor number and increments total floors number
-
 Floor::Floor() // index from 0
 {
     this_floor_number = floors_number;
     floors_number += 1;
 }
-
-// adds person to floor
 
 void Floor::add_person()
 {
@@ -21,13 +17,10 @@ void Floor::add_person()
     else person_queue.push(std::make_shared<Kid>(floors_number, this_floor_number) );       // kid
 }
 
-//  checks if chance for new person meets requirements
-// if meets requirements -> add person
-
 void Floor::iteration()
 {
     int new_person = rand() % 101; // <0;100>
 
-    if(new_person > d_person_percent)
+    if(new_person >= d_person_percent)
         add_person();
 }

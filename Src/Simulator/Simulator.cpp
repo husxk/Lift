@@ -1,8 +1,5 @@
 #include "Simulator.h"
 
-// checks if current floor and desired floor of any person in lift meets,
-// yes -> erase from lift + update lift weight
-
 void Simulator::check_for_desired_floor()
 {
     uint32_t a = 0;
@@ -21,10 +18,6 @@ void Simulator::check_for_desired_floor()
     std::cout << "out: " << a << " ";
 }
 
-// checks if lift can take people from current floor
-// while there is person at current floor and person can get in the lift (lift current weight + person weight <= max lift weight)
-// adds person to lift, updates lift weight, adds person desired floor to queue
-
 void Simulator::check_floor_for_people()
 {
     while(!floors[lift->get_current_position()].is_person() // is_person() returns if person_queue at floor is empty
@@ -36,9 +29,6 @@ void Simulator::check_floor_for_people()
         lift->add_new_floor_to_queue(lift->get_back_person().get()->get_person_floor());
     }
 }
-
-// checks floors if there are people to give lift
-// if find person at any floor, moves to this floor and iterate floors (lift move is considered as iteration)
 
 void Simulator::check_floors_for_call()
 {
@@ -78,10 +68,6 @@ void Simulator::check_floors_for_call()
         iterations++;
     }
 }
-
-// checks people in lift in terms of special events
-// if person has special events -> casts it
-// at the end it is making up iterations overdue
 
 void Simulator::check_for_special_events()
 {
@@ -124,8 +110,6 @@ void Simulator::check_for_special_events()
     additional_iterations(additional_iterations_number);
 }
 
-// it is iterating overdue iterations
-
 void Simulator::additional_iterations(uint32_t additional_iterations)
 {
     iterations += additional_iterations;
@@ -134,17 +118,11 @@ void Simulator::additional_iterations(uint32_t additional_iterations)
         iterate_floors();
 }
 
-// iterating all floors
-
 void Simulator::iterate_floors()
 {
     for(int i = 0; i < settings->get_value("floor_number"); i++)
         floors[i].iteration();
 }
-
-// Simulation iteration
-// this functions holds the responsibility of logic of this program
-// it is cooperating with all objects to let simulation work
 
 void Simulator::iteration()
 {
@@ -175,8 +153,6 @@ void Simulator::iteration()
     std::cout << std::endl;
 }
 
-// shows data collected at simulation
-
 void Simulator::show_results()
 {
     std::cout << std::endl;
@@ -188,16 +164,12 @@ void Simulator::show_results()
     std::cout << "Is simulation successful: " << data->get_is_successful() << std::endl;
 }
 
-// simulator constructor is initializing all necessary objects
-
 Simulator::Simulator()
 {
     settings = std::make_unique<Settings>();
     settings->get_settings();
 
-    if(settings->settings_default())
-        lift = std::make_unique<Lift>();
-    else lift = std::make_unique<Lift>(settings->get_value("lift_max_weight"));
+    lift = std::make_unique<Lift>(settings->get_value("lift_max_weight"));
 
     floors = std::make_unique<Floor[]>(settings->get_value("floor_number"));
 

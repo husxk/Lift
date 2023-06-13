@@ -1,7 +1,5 @@
 #include "Person.h"
 
-// constructor sets weight and if object will have random event
-
 Person::Person()
 {
     set_weight();
@@ -15,8 +13,6 @@ void Person::set_random_event()
     else random_event = false;
 }
 
-// sets weight that depend on person's specifier
-
 void Person::set_weight()
 {
     if(specifier == male)   // to get rand() in range <a;b) use (rand() % (b-a)) + a
@@ -25,8 +21,6 @@ void Person::set_weight()
         weight = (rand() % 40) + 40;
     else weight = (rand() % 30) + 30;
 }
-
-// set object desired floor that is not current floor
 
 void Person::set_floor(uint32_t floors_number, uint32_t current_floor) // TODO: change this to sth better
 {
