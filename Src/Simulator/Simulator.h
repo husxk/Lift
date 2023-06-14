@@ -66,7 +66,7 @@ public:
     it is cooperating with all objects to let simulation work */
     void iteration();
     /* returns if there is any person in lift  */
-    bool is_lift_empty() const { return lift->is_queue_empty(); }
+    bool is_lift_empty() const { return lift->is_people_in_lift(); }
     /* sets if simulation was successful */
     void is_simulation_successful(bool is) { data->set_is_successful(is); }
 

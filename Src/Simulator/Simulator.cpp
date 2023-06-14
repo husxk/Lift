@@ -145,7 +145,7 @@ void Simulator::iteration()
 
     // checks for next lift move
 
-    if(lift->is_queue_empty())
+    if(lift->is_people_in_lift())
         check_floors_for_call();
     else
         lift->lift_move();

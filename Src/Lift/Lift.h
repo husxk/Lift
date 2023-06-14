@@ -52,7 +52,6 @@ public:
     std::shared_ptr<Person> get_front_person() { return people_in_lift.front(); };
     /* returns given element of people_in_lift vector */
     std::shared_ptr<Person> get_person_at(uint32_t index) { return people_in_lift.at(index); };
-    bool is_queue_empty() const { return people_in_lift.empty(); }; // TO DELETE
 
     /* push backs lift_queue vector with given number */
     void add_new_floor_to_queue(uint32_t new_floor) { lift_queue.push_back(new_floor); };
