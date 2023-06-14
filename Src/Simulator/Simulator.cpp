@@ -2,7 +2,7 @@
 
 void Simulator::check_for_desired_floor()
 {
-    uint32_t a = 0;
+    //uint32_t a = 0;
     for (uint32_t i = 0; i < lift->get_size_of_people(); i++)
     {
         if (lift->get_person_at(i)->get_person_floor() == lift->get_current_position())
@@ -12,10 +12,10 @@ void Simulator::check_for_desired_floor()
             lift->delete_person_at(i);
             data->add_person();
             i -= 1;
-            a++;
+            //a++;
         }
     }
-    std::cout << "out: " << a << " ";
+//    std::cout << "out: " << a << " ";
 }
 
 void Simulator::check_floor_for_people()
@@ -32,7 +32,7 @@ void Simulator::check_floor_for_people()
 
 void Simulator::check_floors_for_call()
 {
-    std::cout << " waits" << std::endl << std::endl;
+//    std::cout << " waits" << std::endl << std::endl;
     uint32_t current_position = lift->get_current_position();
     uint32_t max_floors = settings->get_value("floor_number");
 
@@ -126,7 +126,7 @@ void Simulator::iterate_floors()
 
 void Simulator::iteration()
 {
-    std::cout << "it: " << iterations << " ";
+//    std::cout << "it: " << iterations << " ";
 
     iterate_floors();
 
@@ -137,10 +137,10 @@ void Simulator::iteration()
     check_floor_for_people();
 
 
-    std::cout << "floor: " << lift->get_current_position() << " weight: " << lift->get_weight();
-
-    if(!lift->is_people_in_lift())
-        std::cout << " next: " << lift->get_front_person().get()->get_person_floor();
+//    std::cout << "floor: " << lift->get_current_position() << " weight: " << lift->get_weight();
+//
+//    if(!lift->is_people_in_lift())
+//        std::cout << " next: " << lift->get_front_person().get()->get_person_floor();
 
 
     // checks for next lift move
@@ -150,7 +150,7 @@ void Simulator::iteration()
     else
         lift->lift_move();
 
-    std::cout << std::endl;
+   // std::cout << std::endl;
 }
 
 void Simulator::show_results()
