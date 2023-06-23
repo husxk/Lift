@@ -87,7 +87,7 @@ void Simulator::check_for_special_events()
 
         if(lift->get_person_at(i)->get_person_specifier() == male)
         {
-            uint32_t additional = lift->get_person_at(i)->event(0);
+            uint32_t additional = lift->get_person_at(i)->event();
             additional_iterations_number += additional;
             if(additional > 0)
                 data->add_random_male_event();

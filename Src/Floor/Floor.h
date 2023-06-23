@@ -9,39 +9,61 @@
 #include "../Person/Male/Male.h"
 #include "../Person/Kid/Kid.h"
 
-/* % needed to spawn new Person */
+/** % needed to spawn new Person at floor. */
 const int d_person_percent = 90;
 
-/* Floor is responsible for containing Person, creating Person and transferring Person to Lift */
+/** Floor is responsible for containing Person, creating Person and transferring Person to Lift. */
 class Floor
 {
-    /* field to store max floor number to give for Person while setting floor */
+    /**
+
+    Field to store max floor number to give for Person.
+    It is incremented when constructor of Floor is called.
+    */
     inline static uint32_t floors_number = 0;
-    /* field to store current floor number to give for Person while setting floor */
+
+    /** Field to store current floor number to give for Person */
     uint32_t this_floor_number;
 
-    /* stores Person objects at floor level in queue */
+    /** Stores Person objects at floor level in queue */
     std::queue<std::shared_ptr<Person> > person_queue;
 
-    /* deciding who will spawn at floor and push backs to person_queue queue */
+    /**
+
+    Deciding who will spawn at floor.
+    Push backs to person_queue queue.
+    */
     void add_person();
 
 public:
-    /* assigns floor number and increments total floors number */
+    /**
+
+    Assigns floor number and increments total floors number.
+    Indexes from 0.
+    */
     Floor();
     ~Floor() = default;
 
-    /*
-    checks if chance for new person meets requirements in current iteration
-    if requirements meets -> add new person to this floor*/
+    /**
+
+    Checks if chance for new person meets requirements in current iteration.
+    If requirements meets -> add new person to this floor.
+    */
     void iteration();
-    /* returns front element of person_queue queue */
+
+    /**
+    Returns front element of person_queue queue
+    @return std::shared_ptr Person object at front of person queue
+    */
     std::shared_ptr<Person> get_first_person_in_queue() { return person_queue.front(); };
 
-    /* returns if person_queue queue is empty */
+    /**
+    Returns if person_queue queue is empty.
+    @return True if person_queue is empty, false otherwise.
+    */
     bool is_person() const { return person_queue.empty(); };
 
-    /* pops person_queue queue */
+    /** Pops person_queue queue */
     void delete_person_from_floor() { person_queue.pop(); };
 
 };

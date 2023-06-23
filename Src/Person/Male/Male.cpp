@@ -6,7 +6,7 @@ Male::Male(uint32_t floors_number, uint32_t current_floor)
     set_floor(floors_number, current_floor);
 }
 
-uint32_t Male::event(uint32_t none)
+uint32_t Male::event()
 {
     uint32_t iterations = 0;
 

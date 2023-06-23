@@ -6,8 +6,6 @@ Kid::Kid(uint32_t floors_number, uint32_t current_floor)
     set_floor(floors_number, current_floor);
 }
 
-// if there is more than 1 Kid object with special event -> special event can occur
-
 uint32_t Kid::event(uint32_t kid_number)
 {
     if(kid_number > 1)

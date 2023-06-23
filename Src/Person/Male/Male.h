@@ -3,8 +3,21 @@
 
 class Male: public Person {
 public:
-    /* sets desired floor number and special event specifier */
+
+    /**
+
+    Sets desired floor number and special event specifier.
+    @param floors_number - overall floors number in the 'building'.
+    @param current_floor - floor number where object will be created.
+    */
     Male(uint32_t, uint32_t);
-    /* checks if object has random event -> randomise iterations lost because of it, also turning off special even */
-    uint32_t event(uint32_t) override;
+
+    /**
+
+    Checks if object has random event, if has, randomise iterations lost because of it.
+    Also turning off special even.
+    @return additional iteration that are lost because of special event
+    */
+    uint32_t event() override;
+    uint32_t event(uint32_t) override {return 0;};
 };

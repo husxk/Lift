@@ -5,34 +5,59 @@
 #include <stdexcept>
 #include <unordered_map>
 
-/* default number of iterations to be made */
+/** Default number of iterations to be made in simulation. */
 const uint32_t default_iterations = 100;
-/* default lift max weight */
+/** Default max lift weight. */
 const uint32_t default_lift_max_weight = 800;
-/* default number of floors */
-const uint32_t default_floor_number = 11; // its 0 (ground floor) + 10 floors
+/** Default number of floors in the 'building', includes ground floor + 10 floors. */
+const uint32_t default_floor_number = 11;
 
-/* Settings contains settings of simulation */
+/**
+
+The Settings class contains the settings of the simulation.
+*/
 class Settings
 {
-    /*  container for simulation's settings */
-    std::unordered_map<std::string, uint32_t> settings; // iterations, lift_max_weight, floors,
-    /* gets input from user */
+    /**
+
+    The container for the simulation's settings.
+    The possible settings include "iterations", "lift_max_weight", and "floors".
+    */
+    std::unordered_map<std::string, uint32_t> settings;
+
+    /**
+
+     Gets settings from the user.
+     @param what - The prompt message displayed to the user.
+     @return The input value provided by the user.
+     */
     uint32_t get_input(std::string);
-    /* contains if we want to do default simulation */
+    /** Contains if simulation is made by default settings. */
     bool is_default;
 
 public:
-    /* gets if user want to input his data */
+    /** Gets if user want to input his data. */
     Settings();
     ~Settings() = default;
 
-    /* returns value from map at given key */
+    /**
+    Returns the value from the map at the given key.
+    @param key - The key to get the value from the map.
+    @return The value at the given key.
+    */
     uint32_t get_value(std::string key) const { return settings.at(key); };
-    /* returns if user want to have default simulation */
+
+    /**
+
+    Returns whether simulation is default.
+    @return True if it is default simulation, false otherwise.
+    */
     bool settings_default() const { return is_default; };
-    /*
-    gets input from user about iterations, floor_number and lift_max_weight
-    also saves it to map */
+
+    /**
+
+     Gets input from the user about the simulation settings (iterations, floor number, and lift maximum weight).
+     It also saves the settings to the settings map.
+     */
     void get_settings();
 };
